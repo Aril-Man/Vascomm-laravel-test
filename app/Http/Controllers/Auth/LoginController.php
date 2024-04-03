@@ -114,7 +114,7 @@ class LoginController extends Controller
 
         Mail::to($request->email)->send(new PassMail($emailData));
 
-        return redirect()->route('login')->with('success', 'Success Register, wait for approve by admin');
+        return redirect()->route('login')->with('success', 'Success Register. Check your inbox email and wait for approve by admin');
     }
 
     public function logout()
