@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\quota;
 use App\Models\Receiver;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -50,7 +51,7 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->status = 'active';
-        $user->role = 'admin';
+        $user->role = 'customer';
         $user->password = Hash::make("user123");
         $user->save();
 
@@ -143,7 +144,8 @@ class AdminController extends Controller
 
         if ($validator->fails()) return redirect()->route('admin.product.index')->with('error', $validator->errors()->first());
 
-        $imagePath = $request->file('img')->store('product_images');
+        $imagePath = Str::random(16) . '.' . $request->file('img')->extension();
+        $request->file('img')->move(public_path('product_images'), $imagePath);
 
         $product = new Product();
         $product->name = $request->name;
@@ -207,7 +209,8 @@ class AdminController extends Controller
                 if ($product->img_url) {
                     Storage::delete($product->img_url);
                 }
-                $imagePath = $req->file('img')->store('product_images');
+                $imagePath = Str::random(16) . '.' . $req->file('img')->extension();
+                $req->file('img')->move(public_path('product_images'), $imagePath);
             } else {
                 $imagePath = $product->img_url;
             }

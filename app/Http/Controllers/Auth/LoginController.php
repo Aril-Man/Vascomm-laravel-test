@@ -119,7 +119,12 @@ class LoginController extends Controller
 
     public function logout()
     {
-        auth()->logout();
-        return redirect()->route('login');
+        if (Auth::user()->role == "admin") {
+            auth()->logout();
+            return redirect()->route('login');
+        }else {
+            auth()->logout();
+            return redirect()->route('landing');
+        }
     }
 }

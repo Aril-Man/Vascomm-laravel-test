@@ -41,7 +41,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end mb-3">
-                                    <a onclick="openModal()" class="btn btn-primary">Add User</a>
+                                    <a onclick="openModal()" class="btn btn-primary">Add Product</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table mt-2" id="data">
